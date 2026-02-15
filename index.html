@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Check-in do Dojo · mobile</title>
+  <style>
+    /* reset simples e base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: #f2f4f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      margin: 0;
+    }
+
+    .card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 380px;
+      border-radius: 32px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 35px -8px rgba(0, 10, 30, 0.15),
+                  0 8px 12px -4px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(226, 232, 240, 0.6);
+    }
+
+    /* cabeçalho */
+    .dojo-header {
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .dojo-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #0b1b32;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dojo-header h1 span {
+      background: #f0f3fa;
+      padding: 4px 12px 4px 10px;
+      border-radius: 60px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #1e3a8a;
+      letter-spacing: -0.2px;
+    }
+
+    .dojo-header p {
+      font-size: 16px;
+      color: #52607a;
+      font-weight: 400;
+      line-height: 1.4;
+      border-left: 3px solid #b3c7ff;
+      padding-left: 14px;
+      margin-top: 4px;
+    }
+
+    /* grupos de formulário */
+    .input-group {
+      margin-bottom: 22px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2c3e5c;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .input-group input {
+      width: 100%;
+      background: #f8fafd;
+      border: 1.5px solid #e1e8f0;
+      border-radius: 20px;
+      padding: 16px 20px;
+      font-size: 16px;
+      color: #121f3f;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+      font-weight: 450;
+    }
+
+    .input-group input:focus {
+      border-color: #3b5fe0;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(59, 95, 224, 0.12);
+    }
+
+    .input-group input::placeholder {
+      color: #9aabca;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+
+    /* botão principal */
+    .btn-entrar {
+      background: #1e3a8a;
+      color: white;
+      width: 100%;
+      border: none;
+      border-radius: 60px;
+      padding: 18px 20px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-top: 18px;
+      margin-bottom: 18px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 8px 18px -6px rgba(30, 58, 138, 0.3);
+      cursor: pointer;
+    }
+
+    .btn-entrar:active {
+      background: #0f2a62;
+      transform: scale(0.98);
+      box-shadow: 0 4px 8px -3px rgba(0, 20, 60, 0.4);
+    }
+
+    /* link de senha */
+    .forgot-link {
+      text-align: center;
+    }
+
+    .forgot-link a {
+      color: #4b6589;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px dashed #b7c5da;
+      padding-bottom: 3px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .forgot-link a:hover {
+      color: #1e3a8a;
+      border-bottom-color: #1e3a8a;
+    }
+
+    /* dica sutil de preenchimento */
+    .value-hint {
+      display: none; /* não precisa, os inputs já mostram */
+    }
+
+    /* pequeno ajuste para mobile muito pequeno */
+    @media (max-width: 360px) {
+      .card {
+        padding: 24px 18px;
+      }
+      .dojo-header h1 {
+        font-size: 24px;
+      }
+    }
+
+    /* simular um "toast" simples via alert, mas mantemos visual limpo */
+    .note {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #8899bb;
+      border-top: 1px solid #eef2f7;
+      padding-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-label="Tela de login do Dojo">
+    <div class="dojo-header">
+      <h1>
+        🥋 Check‑in do Dojo
+        <span>dojo</span>
+      </h1>
+      <p>Faça seu login para acessar o dojo</p>
+    </div>
+
+    <!-- campos do formulário (funcionais) -->
+    <div class="input-group">
+      <label for="matricula">Matrícula</label>
+      <input type="text" id="matricula" name="matricula" value="100589" placeholder="Matrícula" inputmode="numeric">
+    </div>
+
+    <div class="input-group">
+      <label for="senha">Senha</label>
+      <!-- valor "12345" exibe 5 pontos (•••••) exatamente como no layout original -->
+      <input type="password" id="senha" name="senha" value="12345" placeholder="Senha">
+    </div>
+
+    <!-- botão Entrar com função simples de teste -->
+    <button class="btn-entrar" id="btnEntrar">Entrar</button>
+
+    <!-- link "Esqueceu sua senha?" -->
+    <div class="forgot-link">
+      <a href="#" id="forgotPasswordLink">Esqueceu sua senha?</a>
+    </div>
+
+    <!-- área sutil com lembretes (opcional) -->
+    <div class="note">
+      interface funcional para teste mobile
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Torna a UI interativa para teste: alerta com os dados preenchidos
+      const btn = document.getElementById('btnEntrar');
+      const forgotLink = document.getElementById('forgotPasswordLink');
+      const matriculaInput = document.getElementById('matricula');
+      const senhaInput = document.getElementById('senha');
+
+      // Ação do botão Entrar
+      btn.addEventListener('click', function(event) {
+        event.preventDefault();  // evita qualquer recarregamento da página
+        const matricula = matriculaInput.value.trim() || '(vazio)';
+        const senha = senhaInput.value;  // mantém o valor, mesmo com bolinhas
+
+        // Exibe um alerta simulando tentativa de login
+        alert(`➡️ Tentativa de login\nMatrícula: ${matricula}\nSenha: ${'•'.repeat(senha.length)} (${senha.length} caracteres)`);
+        
+        // (Opcional) Poderia dar um feedback visual, mas alert já é suficiente para teste
+      });
+
+      // Ação do link "Esqueceu sua senha?"
+      forgotLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        alert('🔐 Link: esqueci minha senha\n(fluxo de recuperação simulado)');
+      });
+
+      // Pequeno extra: ao tocar no campo senha, o valor preenchido continua sendo "12345" (visualmente seguro)
+      // Mas caso queira limpar, o usuário pode apagar manualmente.
+    })();
+  </script>
+</body>
+</html>
